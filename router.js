@@ -5,18 +5,14 @@ import { StyleSheet, View, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import RegistrationScreen from "./Screens/RegistrationScreen";
-import LoginScreen from "./Screens/LoginScreen";
-import PostsScreen from "./Screens/PostsScreen";
-import CreatePostsScreen from "./Screens/CreatePostsScreen";
-import ProfileScreen from "./Screens/ProfileScreen";
+import RegistrationScreen from './Screens/authScreens/RegistrationScreen';
+import LoginScreen from './Screens/authScreens/LoginScreen';
+import PostsScreen from "./Screens/mainScreen/PostsScreen";
+import CreatePostsScreen from "./Screens/mainScreen/CreatePostsScreen";
+import ProfileScreen from "./Screens/mainScreen/ProfileScreen";
+
 import { AntDesign } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
-
-//! Icons
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { Octicons } from "@expo/vector-icons";
 
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();

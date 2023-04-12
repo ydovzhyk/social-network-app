@@ -6,7 +6,7 @@ import * as Location from 'expo-location';
 
 import { useIsFocused } from '@react-navigation/native';
 
-import { storage, db } from '../firebase/config';
+import { storage, db } from '../../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 

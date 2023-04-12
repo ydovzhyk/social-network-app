@@ -3,20 +3,14 @@ import { useState } from 'react';
 import { StyleSheet, ImageBackground, Text, View, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import {Gravatar, GravatarApi} from 'react-native-gravatar';
-
-import { authSignUpUser } from "../redux/auth/authOperations";
+import { authSignInUser } from "../../redux/auth/authOperations";
 
 const initialState = {
-    nickName: '',
     email: '',
-    password: '',
-    avatarUrl: '',
+    password: ''
 }
-
-const RegistrationScreen = ({navigation}) => {
+const LoginScreen = ({navigation}) => {
     const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-    const [isEmailCompleted, setIsEmailCompleted] = useState(false);
     const [state, setState] = useState(initialState);
     const [statePassword, setStatePassword] = useState(true);
 
@@ -28,61 +22,23 @@ const RegistrationScreen = ({navigation}) => {
     }
 
     const handleSubmit = () => {
-        dispatch(authSignUpUser(state));
+        dispatch(authSignInUser(state));
         setState(initialState);
     }
 
-    const getAvatar = () => {
-        let emailAvatar = '';
-        let avatarUrl = '';
-        if(isEmailCompleted) {
-            emailAvatar = `${state.email}`;
-            const options = {
-                email: `${state.email}`
-            } 
-            avatarUrl = GravatarApi.imageUrl(options);
-        } else {
-            emailAvatar = 'test@gmail.com';
-            const options = {
-                email: 'test@gmail.com'
-            } 
-            avatarUrl = GravatarApi.imageUrl(options);
-        }
-        return {emailAvatar: emailAvatar, avatarUrl: avatarUrl};
-    }
-    
     return (
         <TouchableWithoutFeedback onPress={keyboardHide}>
             <View style={styles.container}>
                 <ImageBackground
                     style={styles.image}
-                    source={require('../assets/images/photoBG.jpg')}
+                    source={require('../../assets/images/photoBG.jpg')}
                 >
-                <View style={{...styles.registerContainer, marginBottom: isShowKeyboard ? -60: 0}}>
+                <View style={{...styles.registerContainer, marginBottom: isShowKeyboard ? -125: 0}}>
                     <View style={styles.registerBox}>
-                        <View style={styles.photoBox}>
-                        <Gravatar options={{
-                            email: `${getAvatar().emailAvatar}`,
-                            parameters: {"size": "200", "d": "mm"},
-                            secure: true
-                            }}
-                        style={styles.photoPlace} />
-                        </View>
-
-                    <Text style={styles.boxTitle}>Registration</Text>
+                        
+                    <Text style={styles.boxTitle}>Login</Text>
 
                     <View style={styles.form}>
-                        <View style={styles.inputBackground}>
-                            <TextInput 
-                                style={styles.inputForm} 
-                                placeholder={'Nickname'} 
-                                maxLength={40}
-                                placeholderTextColor={"#BDBDBD"}
-                                value={state.nickName}
-                                onFocus={() => setIsShowKeyboard(true)}
-                                onChangeText={(value) => setState((prevState) => ({...prevState, nickName: value}))}
-                            />
-                        </View>
                         <View style={styles.inputBackground}>
                             <TextInput 
                                 style={styles.inputForm} 
@@ -90,11 +46,7 @@ const RegistrationScreen = ({navigation}) => {
                                 maxLength={40}
                                 placeholderTextColor={"#BDBDBD"}
                                 value={state.email}
-                                onFocus={() => {
-                                    setIsShowKeyboard(true);
-                                    setIsEmailCompleted(true);
-                                }}
-                                onBlur={() => setState((prevState) => ({...prevState, avatarUrl: `${getAvatar().avatarUrl}`}))}
+                                onFocus={() => setIsShowKeyboard(true)}
                                 onChangeText={(value) => setState((prevState) => ({...prevState, email: value}))}
                             />
                         </View>
@@ -117,6 +69,7 @@ const RegistrationScreen = ({navigation}) => {
                                 style={styles.btnPassword}
                                 onPress={() => {
                                     if(!statePassword) {
+                                        
                                         setStatePassword(true)
                                     } else {
                                         setStatePassword(false)
@@ -126,21 +79,22 @@ const RegistrationScreen = ({navigation}) => {
                                 <Text style={styles.btnPasswordTitle}>{statePassword ? "Show" : "Hide"}</Text>
                             </TouchableOpacity>
                         </View>
+
                         <TouchableOpacity 
                             activeOpacity={0.8} 
                             style={styles.btn}
                             onPress={handleSubmit}
                         >
-                            <Text style={styles.btnTitle}>Register</Text>
+                            <Text style={styles.btnTitle}>Login</Text>
                         </TouchableOpacity>
                     </View>
             
                     <TouchableOpacity
                         activeOpacity={0.8} 
                         style={styles.navLoginBtn}
-                        onPress={() => navigation.navigate('Login')}
+                        onPress={() => navigation.navigate('Register')}
                     >
-                        <Text style={styles.navLoginText}>Already have an account? Enter</Text>
+                        <Text style={styles.navLoginText}>Don't have an account? Register</Text>
                     </TouchableOpacity>
                     </View>
                 </View>
@@ -169,7 +123,7 @@ const styles = StyleSheet.create({
     registerBox: {
         display: "flex",
         justifyContent: 'flex-end',
-        height: 549,
+        height: 489,
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
@@ -178,30 +132,6 @@ const styles = StyleSheet.create({
         marginBottom: 33,
         textAlign: "center",
         fontSize: 30,
-    },
-    photoBox: {
-        marginBottom: 30,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-    },
-    photoPlace: {
-        width: 120,
-        height: 120,
-        backgroundColor: "#F6F6F6",
-        borderRadius: 16,
-    },
-    photoAdd:{
-        marginLeft: -15,
-        marginTop: 81,
-        width: 25,
-        height: 25,
-        backgroundColor: "#FFFFFF",
-        borderRadius: 100,
-        borderWidth: 1,
-        borderColor: "#FF6C00",
-        textAlign: "center",
-        fontSize: 21,
     },
     form: {
         marginBottom: 16,
@@ -262,8 +192,8 @@ const styles = StyleSheet.create({
     },
     navLoginBtn: {
         alignItems: "center",
-        marginBottom: 78,
+        marginBottom: 144,
     }
 });
 
-export default RegistrationScreen;
+export default LoginScreen;

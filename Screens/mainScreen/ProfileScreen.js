@@ -7,12 +7,12 @@ import * as ImagePicker from 'expo-image-picker';
 import urid from 'urid'; 
 
 import { collection, getDocs, doc, onSnapshot, deleteDoc, where, query } from "firebase/firestore";
-import { storage, db } from '../firebase/config';
+import { storage, db } from '../../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { useDispatch } from 'react-redux';
-import { updateUserData } from "../redux/auth/authOperations";
-import { authSignOutUser, authDeleteUser } from "../redux/auth/authOperations";
+import { updateUserData } from "../../redux/auth/authOperations";
+import { authSignOutUser, authDeleteUser } from "../../redux/auth/authOperations";
 
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons'; 
@@ -126,7 +126,7 @@ const ProfileScreen = ({navigation}) => {
             <View style={styles.container}>
                 <ImageBackground
                     style={styles.image}
-                    source={require('../assets/images/photoBG.jpg')}
+                    source={require('../../assets/images/photoBG.jpg')}
                 >
                 <View style= {styles.registerContainer}>
 
